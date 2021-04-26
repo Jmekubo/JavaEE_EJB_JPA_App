@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TaskCreateDlg" widgetVar="TaskCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tasks.CreateTaskTitle}">
+            <h:form id="TaskCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{taskController.selected != null}">
+                        <p:outputLabel value="#{tasks.CreateTaskLabel_taskId}" for="taskId" />
+                        <p:inputText id="taskId" value="#{taskController.selected.taskId}" title="#{tasks.CreateTaskTitle_taskId}" required="true" requiredMessage="#{tasks.CreateTaskRequiredMessage_taskId}"/>
+                        <p:outputLabel value="#{tasks.CreateTaskLabel_taskdetails}" for="taskdetails" />
+                        <p:inputText id="taskdetails" value="#{taskController.selected.taskdetails}" title="#{tasks.CreateTaskTitle_taskdetails}" required="true" requiredMessage="#{tasks.CreateTaskRequiredMessage_taskdetails}"/>
+                        <p:outputLabel value="#{tasks.CreateTaskLabel_startdate}" for="startdate" />
+                        <p:inputText id="startdate" value="#{taskController.selected.startdate}" title="#{tasks.CreateTaskTitle_startdate}" required="true" requiredMessage="#{tasks.CreateTaskRequiredMessage_startdate}"/>
+                        <p:outputLabel value="#{tasks.CreateTaskLabel_enddate}" for="enddate" />
+                        <p:inputText id="enddate" value="#{taskController.selected.enddate}" title="#{tasks.CreateTaskTitle_enddate}" required="true" requiredMessage="#{tasks.CreateTaskRequiredMessage_enddate}"/>
+                        <p:outputLabel value="#{tasks.CreateTaskLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{taskController.selected.status}" title="#{tasks.CreateTaskTitle_status}" />
+                        <p:outputLabel value="#{tasks.CreateTaskLabel_projId}" for="projId" />
+                        <p:selectOneMenu id="projId" value="#{taskController.selected.projId}" >
+                            <f:selectItems value="#{projectsController.itemsAvailableSelectOne}"
+                                           var="projIdItem"
+                                           itemValue="#{projIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{taskController.create}" value="#{tasks.Save}" update="display,:TaskListForm:datalist,:growl" oncomplete="handleSubmit(args,'TaskCreateDialog');"/>
+                    <p:commandButton value="#{tasks.Cancel}" onclick="TaskCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

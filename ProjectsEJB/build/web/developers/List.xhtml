@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <ui:define name="title">
+            <h:outputText value="#{eJBProject.ListDevelopersTitle}"></h:outputText>
+        </ui:define>
+
+        <ui:define name="body">
+            <h:form id="DevelopersListForm">
+                <p:panel header="#{eJBProject.ListDevelopersTitle}">
+                    <p:dataTable id="datalist" value="#{developersController.items}" var="item"
+                                 selectionMode="single" selection="#{developersController.selected}"
+                                 paginator="true"
+                                 rowKey="#{item.devId}"
+                                 rows="10"
+                                 rowsPerPageTemplate="10,20,30,40,50"
+                                 >
+
+                        <p:ajax event="rowSelect"   update="createButton viewButton editButton deleteButton"/>
+                        <p:ajax event="rowUnselect" update="createButton viewButton editButton deleteButton"/>
+
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{eJBProject.ListDevelopersTitle_devId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.devId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{eJBProject.ListDevelopersTitle_firstname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.firstname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{eJBProject.ListDevelopersTitle_lastname}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.lastname}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{eJBProject.ListDevelopersTitle_phone}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.phone}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{eJBProject.ListDevelopersTitle_locId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.locId}"/>
+                        </p:column>
+                        <p:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{eJBProject.ListDevelopersTitle_userId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userId}"/>
+                        </p:column>
+                        <f:facet name="footer">
+                            <p:commandButton id="createButton" icon="ui-icon-plus"   value="#{eJBProject.Create}" actionListener="#{developersController.prepareCreate}" update=":DevelopersCreateForm" oncomplete="PF('DevelopersCreateDialog').show()"/>
+                            <p:commandButton id="viewButton"   icon="ui-icon-search" value="#{eJBProject.View}" update=":DevelopersViewForm" oncomplete="PF('DevelopersViewDialog').show()" disabled="#{empty developersController.selected}"/>
+                            <p:commandButton id="editButton"   icon="ui-icon-pencil" value="#{eJBProject.Edit}" update=":DevelopersEditForm" oncomplete="PF('DevelopersEditDialog').show()" disabled="#{empty developersController.selected}"/>
+                            <p:commandButton id="deleteButton" icon="ui-icon-trash"  value="#{eJBProject.Delete}" actionListener="#{developersController.destroy}" update=":growl,datalist" disabled="#{empty developersController.selected}"/>
+                        </f:facet>
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+            <ui:include src="Create.xhtml"/>
+            <ui:include src="Edit.xhtml"/>
+            <ui:include src="View.xhtml"/>
+        </ui:define>
+    </ui:composition>
+
+</html>

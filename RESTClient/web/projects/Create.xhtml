@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProjectsCreateDlg" widgetVar="ProjectsCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tasks.CreateProjectsTitle}">
+            <h:form id="ProjectsCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{projectsController.selected != null}">
+                        <p:outputLabel value="#{tasks.CreateProjectsLabel_projId}" for="projId" />
+                        <p:inputText id="projId" value="#{projectsController.selected.projId}" title="#{tasks.CreateProjectsTitle_projId}" required="true" requiredMessage="#{tasks.CreateProjectsRequiredMessage_projId}"/>
+                        <p:outputLabel value="#{tasks.CreateProjectsLabel_projectdetails}" for="projectdetails" />
+                        <p:inputText id="projectdetails" value="#{projectsController.selected.projectdetails}" title="#{tasks.CreateProjectsTitle_projectdetails}" required="true" requiredMessage="#{tasks.CreateProjectsRequiredMessage_projectdetails}"/>
+                        <p:outputLabel value="#{tasks.CreateProjectsLabel_startdate}" for="startdate" />
+                        <p:calendar id="startdate" pattern="MM/dd/yyyy" value="#{projectsController.selected.startdate}" title="#{tasks.EditProjectsTitle_startdate}" required="true" requiredMessage="#{tasks.EditProjectsRequiredMessage_startdate}" showOn="button"/>
+                        <p:outputLabel value="#{tasks.CreateProjectsLabel_enddate}" for="enddate" />
+                        <p:calendar id="enddate" pattern="MM/dd/yyyy" value="#{projectsController.selected.enddate}" title="#{tasks.EditProjectsTitle_enddate}" required="true" requiredMessage="#{tasks.EditProjectsRequiredMessage_enddate}" showOn="button"/>
+                        <p:outputLabel value="#{tasks.CreateProjectsLabel_custId}" for="custId" />
+                        <p:selectOneMenu id="custId" value="#{projectsController.selected.custId}" >
+                            <f:selectItems value="#{customersController.itemsAvailableSelectOne}"
+                                           var="custIdItem"
+                                           itemValue="#{custIdItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{projectsController.create}" value="#{tasks.Save}" update="display,:ProjectsListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProjectsCreateDialog');"/>
+                    <p:commandButton value="#{tasks.Cancel}" onclick="ProjectsCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

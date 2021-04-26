@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TeamleadersViewDlg" widgetVar="TeamleadersViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{eJBProject.ViewTeamleadersTitle}">
+            <h:form id="TeamleadersViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{teamleadersController.selected != null}">
+                        <h:outputText value="#{eJBProject.ViewTeamleadersLabel_temId}"/>
+                        <h:outputText value="#{teamleadersController.selected.temId}" title="#{eJBProject.ViewTeamleadersTitle_temId}"/>
+                        <h:outputText value="#{eJBProject.ViewTeamleadersLabel_firstname}"/>
+                        <h:outputText value="#{teamleadersController.selected.firstname}" title="#{eJBProject.ViewTeamleadersTitle_firstname}"/>
+                        <h:outputText value="#{eJBProject.ViewTeamleadersLabel_lastname}"/>
+                        <h:outputText value="#{teamleadersController.selected.lastname}" title="#{eJBProject.ViewTeamleadersTitle_lastname}"/>
+                        <h:outputText value="#{eJBProject.ViewTeamleadersLabel_phone}"/>
+                        <h:outputText value="#{teamleadersController.selected.phone}" title="#{eJBProject.ViewTeamleadersTitle_phone}"/>
+                        <h:outputText value="#{eJBProject.ViewTeamleadersLabel_locId}"/>
+                        <h:outputText value="#{teamleadersController.selected.locId}" title="#{eJBProject.ViewTeamleadersTitle_locId}"/>
+                        <h:outputText value="#{eJBProject.ViewTeamleadersLabel_userId}"/>
+                        <h:outputText value="#{teamleadersController.selected.userId}" title="#{eJBProject.ViewTeamleadersTitle_userId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{eJBProject.Close}" onclick="TeamleadersViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

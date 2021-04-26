@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="UsersCreateDlg" widgetVar="UsersCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{tasks.CreateUsersTitle}">
+            <h:form id="UsersCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{usersController.selected != null}">
+                        <p:outputLabel value="#{tasks.CreateUsersLabel_userId}" for="userId" />
+                        <p:inputText id="userId" value="#{usersController.selected.userId}" title="#{tasks.CreateUsersTitle_userId}" required="true" requiredMessage="#{tasks.CreateUsersRequiredMessage_userId}"/>
+                        <p:outputLabel value="#{tasks.CreateUsersLabel_usertype}" for="usertype" />
+                        <p:inputText id="usertype" value="#{usersController.selected.usertype}" title="#{tasks.CreateUsersTitle_usertype}" required="true" requiredMessage="#{tasks.CreateUsersRequiredMessage_usertype}"/>
+                        <p:outputLabel value="#{tasks.CreateUsersLabel_username}" for="username" />
+                        <p:inputText id="username" value="#{usersController.selected.username}" title="#{tasks.CreateUsersTitle_username}" required="true" requiredMessage="#{tasks.CreateUsersRequiredMessage_username}"/>
+                        <p:outputLabel value="#{tasks.CreateUsersLabel_email}" for="email" />
+                        <p:inputText id="email" value="#{usersController.selected.email}" title="#{tasks.CreateUsersTitle_email}" required="true" requiredMessage="#{tasks.CreateUsersRequiredMessage_email}"/>
+                        <p:outputLabel value="#{tasks.CreateUsersLabel_password}" for="password" />
+                        <p:inputText id="password" value="#{usersController.selected.password}" title="#{tasks.CreateUsersTitle_password}" required="true" requiredMessage="#{tasks.CreateUsersRequiredMessage_password}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{usersController.create}" value="#{tasks.Save}" update="display,:UsersListForm:datalist,:growl" oncomplete="handleSubmit(args,'UsersCreateDialog');"/>
+                    <p:commandButton value="#{tasks.Cancel}" onclick="UsersCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

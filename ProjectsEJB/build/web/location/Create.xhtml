@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="LocationCreateDlg" widgetVar="LocationCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{eJBProject.CreateLocationTitle}">
+            <h:form id="LocationCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{locationController.selected != null}">
+                        <p:outputLabel value="#{eJBProject.CreateLocationLabel_locId}" for="locId" />
+                        <p:inputText id="locId" value="#{locationController.selected.locId}" title="#{eJBProject.CreateLocationTitle_locId}" required="true" requiredMessage="#{eJBProject.CreateLocationRequiredMessage_locId}"/>
+                        <p:outputLabel value="#{eJBProject.CreateLocationLabel_region}" for="region" />
+                        <p:inputText id="region" value="#{locationController.selected.region}" title="#{eJBProject.CreateLocationTitle_region}" required="true" requiredMessage="#{eJBProject.CreateLocationRequiredMessage_region}"/>
+                        <p:outputLabel value="#{eJBProject.CreateLocationLabel_city}" for="city" />
+                        <p:inputText id="city" value="#{locationController.selected.city}" title="#{eJBProject.CreateLocationTitle_city}" required="true" requiredMessage="#{eJBProject.CreateLocationRequiredMessage_city}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{locationController.create}" value="#{eJBProject.Save}" update="display,:LocationListForm:datalist,:growl" oncomplete="handleSubmit(args,'LocationCreateDialog');"/>
+                    <p:commandButton value="#{eJBProject.Cancel}" onclick="LocationCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

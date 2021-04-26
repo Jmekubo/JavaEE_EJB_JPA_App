@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TeamCreateDlg" widgetVar="TeamCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{eJBProject.CreateTeamTitle}">
+            <h:form id="TeamCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{teamController.selected != null}">
+                        <p:outputLabel value="#{eJBProject.CreateTeamLabel_teamId}" for="teamId" />
+                        <p:inputText id="teamId" value="#{teamController.selected.teamId}" title="#{eJBProject.CreateTeamTitle_teamId}" required="true" requiredMessage="#{eJBProject.CreateTeamRequiredMessage_teamId}"/>
+                        <p:outputLabel value="#{eJBProject.CreateTeamLabel_category}" for="category" />
+                        <p:inputText id="category" value="#{teamController.selected.category}" title="#{eJBProject.CreateTeamTitle_category}" required="true" requiredMessage="#{eJBProject.CreateTeamRequiredMessage_category}"/>
+                        <p:outputLabel value="#{eJBProject.CreateTeamLabel_locId}" for="locId" />
+                        <p:inputText id="locId" value="#{teamController.selected.locId}" title="#{eJBProject.CreateTeamTitle_locId}" required="true" requiredMessage="#{eJBProject.CreateTeamRequiredMessage_locId}"/>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{teamController.create}" value="#{eJBProject.Save}" update="display,:TeamListForm:datalist,:growl" oncomplete="handleSubmit(args,'TeamCreateDialog');"/>
+                    <p:commandButton value="#{eJBProject.Cancel}" onclick="TeamCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

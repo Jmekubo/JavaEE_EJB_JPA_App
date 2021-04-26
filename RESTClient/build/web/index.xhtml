@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+        <h:outputStylesheet name="css/jsfcrud.css"/>
+    </h:head>
+    <h:body>
+       <p:growl id="growl" life="3000"/>
+       <h:form id="taskFormList">
+           <p:dataTable id="dataList" value="#{taskController.tasks}" var="item"
+                        selectionMode="single" rowKey="#{item.taskId}">
+               <p:column>
+                   <f:facet name="header"><h:outputText value="ID"/></f:facet>
+                   <h:outputText value="#{item.taskId}"/>
+               </p:column>
+                <p:column>
+                   <f:facet name="header"><h:outputText value="Task Details"/></f:facet>
+                   <h:outputText value="#{item.taskdetails}"/>
+               </p:column>
+                <p:column>
+                   <f:facet name="header"><h:outputText value="Start Date"/></f:facet>
+                   <h:outputText value="#{item.startdate}"/>
+               </p:column>
+                <p:column>
+                   <f:facet name="header"><h:outputText value="End Date"/></f:facet>
+                   <h:outputText value="#{item.enddate}"/>
+               </p:column>
+                <p:column>
+                   <f:facet name="header"><h:outputText value="Status"/></f:facet>
+                   <h:outputText value="#{item.status}"/>
+               </p:column>
+               <p:column>
+                   <p:commandButton id="createButton" icon="ui-icon-plus" value="create"
+                                    actionListener="#{taskController.prepareCreate()}"
+                                    update=":taskListForm"
+                                    oncomplete="PF('TaskCreateDialog').show()"/>
+               </p:column>
+           </p:dataTable>
+       </h:form>
+       <p:dialog id="TaskDialog1" widgetVar="TaskCreateDialog" modal="true"
+                 resizable="false" appendTo="@(body)" header="Create Task">
+           <h:form id="TaskCreateForm">
+               <h:panelGroup id="display">
+                   <p:panelGrid columns="2" rendered="#{taskController.current != null}">
+                       <p:outputLabel value="Task Details" for="taskdetails"/>
+                       <p:inputText id="taskdetails" value="#{taskController.current.taskdetails}"
+                                    title="task details" required="true" requiredMessage="Task Details is required"/>
+                       <p:outputLabel value="Start Date" for="startdate"/>
+                       <p:calendar id="startdate" pattern="MM/dd/yyyy"  value="#{taskController.current.startdate}"/>
+                                               
+                       <p:outputLabel value="End Date" for="enddate"/>
+                       <p:calendar id="enddate" pattern="MM/dd/yyyy"  value="#{taskController.current.enddate}"/>
+                                  
+                       <p:outputLabel value="status" for="status"/>
+                       <p:inputText id="status" value="#{taskController.current.status}"
+                                    title="status" required="true" requiredMessage="status is required"/>
+                   </p:panelGrid>
+                   <p:commandButton actionListener="#{taskController.create()}" value="save"
+                                    oncomplete="TaskCreateDialog.hide()" update=":TaskListForm"/>
+                   <p:commandButton value="Cancel" onclick="TaskCreateDialog.hide()"/>
+               </h:panelGroup>
+           </h:form>
+        </p:dialog>
+    </h:body>
+
+
+
+
+</html>
+

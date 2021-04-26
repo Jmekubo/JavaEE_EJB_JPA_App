@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TasksEditDlg" widgetVar="TasksEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{eJBProject.EditTasksTitle}">
+            <h:form id="TasksEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tasksController.selected != null}">
+                        <p:outputLabel value="#{eJBProject.EditTasksLabel_taskId}" for="taskId" />
+                        <p:inputText id="taskId" value="#{tasksController.selected.taskId}" title="#{eJBProject.EditTasksTitle_taskId}" required="true" requiredMessage="#{eJBProject.EditTasksRequiredMessage_taskId}"/>
+                        <p:outputLabel value="#{eJBProject.EditTasksLabel_taskdetails}" for="taskdetails" />
+                        <p:inputText id="taskdetails" value="#{tasksController.selected.taskdetails}" title="#{eJBProject.EditTasksTitle_taskdetails}" required="true" requiredMessage="#{eJBProject.EditTasksRequiredMessage_taskdetails}"/>
+                        <p:outputLabel value="#{eJBProject.EditTasksLabel_startdate}" for="startdate" />
+                        <p:calendar id="startdate" pattern="MM/dd/yyyy" value="#{tasksController.selected.startdate}" title="#{eJBProject.EditTasksTitle_startdate}" required="true" requiredMessage="#{eJBProject.EditTasksRequiredMessage_startdate}" showOn="button"/>
+                        <p:outputLabel value="#{eJBProject.EditTasksLabel_enddate}" for="enddate" />
+                        <p:calendar id="enddate" pattern="MM/dd/yyyy" value="#{tasksController.selected.enddate}" title="#{eJBProject.EditTasksTitle_enddate}" required="true" requiredMessage="#{eJBProject.EditTasksRequiredMessage_enddate}" showOn="button"/>
+                        <p:outputLabel value="#{eJBProject.EditTasksLabel_status}" for="status" />
+                        <p:inputText id="status" value="#{tasksController.selected.status}" title="#{eJBProject.EditTasksTitle_status}" />
+                        <p:outputLabel value="#{eJBProject.EditTasksLabel_temId}" for="temId" />
+                        <p:inputText id="temId" value="#{tasksController.selected.temId}" title="#{eJBProject.EditTasksTitle_temId}" />
+                        <p:outputLabel value="#{eJBProject.EditTasksLabel_devId}" for="devId" />
+                        <p:inputText id="devId" value="#{tasksController.selected.devId}" title="#{eJBProject.EditTasksTitle_devId}" />
+                        <p:outputLabel value="#{eJBProject.EditTasksLabel_projId}" for="projId" />
+                        <p:selectOneMenu id="projId" value="#{tasksController.selected.projId}" >
+                            <f:selectItem itemLabel="#{eJBProject.SelectOneMessage}"/>
+                            <f:selectItems value="#{projectsController.itemsAvailableSelectOne}"
+                                           var="projIdItem"
+                                           itemValue="#{projIdItem}"
+                                           itemLabel="#{projIdItem.projectdetails}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{tasksController.update}" value="#{eJBProject.Save}" update="display,:TasksListForm:datalist,:growl" oncomplete="handleSubmit(args, 'TasksEditDialog');"/>
+                    <p:commandButton value="#{eJBProject.Cancel}" onclick="TasksEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

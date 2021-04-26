@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="DevelopersEditDlg" widgetVar="DevelopersEditDialog" modal="true" resizable="false" appendTo="@(body)" header="#{eJBProject.EditDevelopersTitle}">
+            <h:form id="DevelopersEditForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{developersController.selected != null}">
+                        <p:outputLabel value="#{eJBProject.EditDevelopersLabel_devId}" for="devId" />
+                        <p:inputText id="devId" value="#{developersController.selected.devId}" title="#{eJBProject.EditDevelopersTitle_devId}" required="true" requiredMessage="#{eJBProject.EditDevelopersRequiredMessage_devId}"/>
+                        <p:outputLabel value="#{eJBProject.EditDevelopersLabel_firstname}" for="firstname" />
+                        <p:inputText id="firstname" value="#{developersController.selected.firstname}" title="#{eJBProject.EditDevelopersTitle_firstname}" required="true" requiredMessage="#{eJBProject.EditDevelopersRequiredMessage_firstname}"/>
+                        <p:outputLabel value="#{eJBProject.EditDevelopersLabel_lastname}" for="lastname" />
+                        <p:inputText id="lastname" value="#{developersController.selected.lastname}" title="#{eJBProject.EditDevelopersTitle_lastname}" required="true" requiredMessage="#{eJBProject.EditDevelopersRequiredMessage_lastname}"/>
+                        <p:outputLabel value="#{eJBProject.EditDevelopersLabel_phone}" for="phone" />
+                        <p:inputText id="phone" value="#{developersController.selected.phone}" title="#{eJBProject.EditDevelopersTitle_phone}" required="true" requiredMessage="#{eJBProject.EditDevelopersRequiredMessage_phone}"/>
+                        <p:outputLabel value="#{eJBProject.EditDevelopersLabel_locId}" for="locId" />
+                        <p:inputText id="locId" value="#{developersController.selected.locId}" title="#{eJBProject.EditDevelopersTitle_locId}" />
+                        <p:outputLabel value="#{eJBProject.EditDevelopersLabel_userId}" for="userId" />
+                        <p:inputText id="userId" value="#{developersController.selected.userId}" title="#{eJBProject.EditDevelopersTitle_userId}" />
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{developersController.update}" value="#{eJBProject.Save}" update="display,:DevelopersListForm:datalist,:growl" oncomplete="handleSubmit(args, 'DevelopersEditDialog');"/>
+                    <p:commandButton value="#{eJBProject.Cancel}" onclick="DevelopersEditDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>

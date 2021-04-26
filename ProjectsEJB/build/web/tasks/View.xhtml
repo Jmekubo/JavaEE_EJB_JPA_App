@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="TasksViewDlg" widgetVar="TasksViewDialog" modal="true" resizable="false" appendTo="@(body)" header="#{eJBProject.ViewTasksTitle}">
+            <h:form id="TasksViewForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{tasksController.selected != null}">
+                        <h:outputText value="#{eJBProject.ViewTasksLabel_taskId}"/>
+                        <h:outputText value="#{tasksController.selected.taskId}" title="#{eJBProject.ViewTasksTitle_taskId}"/>
+                        <h:outputText value="#{eJBProject.ViewTasksLabel_taskdetails}"/>
+                        <h:outputText value="#{tasksController.selected.taskdetails}" title="#{eJBProject.ViewTasksTitle_taskdetails}"/>
+                        <h:outputText value="#{eJBProject.ViewTasksLabel_startdate}"/>
+                        <h:outputText value="#{tasksController.selected.startdate}" title="#{eJBProject.ViewTasksTitle_startdate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{eJBProject.ViewTasksLabel_enddate}"/>
+                        <h:outputText value="#{tasksController.selected.enddate}" title="#{eJBProject.ViewTasksTitle_enddate}">
+                            <f:convertDateTime pattern="MM/dd/yyyy" />
+                        </h:outputText>
+                        <h:outputText value="#{eJBProject.ViewTasksLabel_status}"/>
+                        <h:outputText value="#{tasksController.selected.status}" title="#{eJBProject.ViewTasksTitle_status}"/>
+                        <h:outputText value="#{eJBProject.ViewTasksLabel_temId}"/>
+                        <h:outputText value="#{tasksController.selected.temId}" title="#{eJBProject.ViewTasksTitle_temId}"/>
+                        <h:outputText value="#{eJBProject.ViewTasksLabel_devId}"/>
+                        <h:outputText value="#{tasksController.selected.devId}" title="#{eJBProject.ViewTasksTitle_devId}"/>
+                        <h:outputText value="#{eJBProject.ViewTasksLabel_projId}"/>
+                        <h:outputText value="#{tasksController.selected.projId}" title="#{eJBProject.ViewTasksTitle_projId}"/>
+                    </p:panelGrid>
+                    <p:commandButton value="#{eJBProject.Close}" onclick="TasksViewDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
